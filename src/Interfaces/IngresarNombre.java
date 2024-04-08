@@ -112,10 +112,15 @@ public class IngresarNombre extends javax.swing.JFrame {
 
         InterfasEjercito interfasEjercito = new InterfasEjercito();
         
-        interfasEjercito.setNombreEjercito(nombre);
+        /*interfasEjercito.setNombreEjercito(nombre);
         interfasEjercito.setVisible(true);
         this.setVisible(false);
-
+        */
+// InterfasEjercito interfasEjercito = new InterfasEjercito(nombre);
+    // Hacer visible la instancia de InterfasEjercito
+    interfasEjercito.setVisible(true);
+    // Cerrar la ventana actual
+    this.setVisible(false);
         ActionListener oyente = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -159,7 +159,8 @@ public class Batallass extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(seleccionar)
                     .addComponent(XML)
-                    .addComponent(Salir)))
+                    .addComponent(Salir))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         pack();
