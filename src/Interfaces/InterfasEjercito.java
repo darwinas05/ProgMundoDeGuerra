@@ -38,7 +38,13 @@ public class InterfasEjercito extends javax.swing.JFrame {
         this.Tabla1.setModel(modelo);
         
         }
- 
+ // Metodo para agregar una imagen como icono. 
+    public Icon icono(String path, int width, int heigth){
+        Icon img = new ImageIcon(new ImageIcon(getClass()
+                .getResource(path)).getImage().getScaledInstance(width,
+                        heigth, java.awt.Image.SCALE_SMOOTH));
+        return img;
+    }
     
     
     /**
@@ -56,9 +62,9 @@ public class InterfasEjercito extends javax.swing.JFrame {
         caballeria = new javax.swing.JButton();
         btnGeneral = new javax.swing.JButton();
         btnElefante = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnTigre = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        ConfirmarElementos = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -109,11 +115,21 @@ public class InterfasEjercito extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("jButton3");
+        btnTigre.setText("Añadir Tigre");
+        btnTigre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTigreActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("jButton3");
+        btnEliminar.setText("Eliminar elemento");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
-        jButton8.setText("jButton3");
+        ConfirmarElementos.setText("Confirmar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,21 +138,21 @@ public class InterfasEjercito extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NombreEjercito)
+                    .addComponent(infanteria)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton7)
-                        .addComponent(jButton8)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnElefante)
-                            .addGap(28, 28, 28))
-                        .addComponent(infanteria, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton6))
+                        .addComponent(btnElefante, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnGeneral, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caballeria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(caballeria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(NombreEjercito)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(btnTigre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ConfirmarElementos)
+                .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,12 +168,12 @@ public class InterfasEjercito extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnElefante)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addComponent(btnTigre)
                 .addGap(27, 27, 27)
-                .addComponent(jButton7)
-                .addGap(28, 28, 28)
-                .addComponent(jButton8)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(btnEliminar)
+                .addGap(27, 27, 27)
+                .addComponent(ConfirmarElementos)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_END);
@@ -279,8 +295,13 @@ public class InterfasEjercito extends javax.swing.JFrame {
 
     private void NombreEjercitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreEjercitoActionPerformed
 
-         IngresarNombre ingrNom = new IngresarNombre();
-            ingrNom.setVisible(true);
+        // Agregamos un icono al JOptionPane, el mensaje a mostrar y el titulo de la ventana.
+        String ingresaName = JOptionPane.showInputDialog(null,new JLabel("Ingresa un nombre para tu ejército",
+        icono("/imagenes/desplazarse.png", 40, 40), JLabel.CENTER),
+                "Nombre del ejército", JOptionPane.PLAIN_MESSAGE);
+        
+         InterfasEjercito inteEjercito = new InterfasEjercito();
+            inteEjercito.setVisible(true);
             
   
     }//GEN-LAST:event_NombreEjercitoActionPerformed
@@ -310,13 +331,31 @@ public class InterfasEjercito extends javax.swing.JFrame {
     }//GEN-LAST:event_btnElefanteActionPerformed
 
     private void btnGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralActionPerformed
-      
+
+        
+        String mensage = " Solo puedes agregar un general por ejército ";
+        JOptionPane.showMessageDialog(this,mensage);
+        
+        
         String tabla = Tabla1.getToolTipText();
          ejercito.menu();
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
      
     }//GEN-LAST:event_btnGeneralActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int elimi = Tabla1.getSelectedRowCount();
+        if (elimi >= 0){
+            modelo.removeRow(elimi);
+        }else{
+            JOptionPane.showMessageDialog(null,"No hay elementos para eliminar.");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnTigreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTigreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTigreActionPerformed
 
     void setNombreEjercito(String nombre){
         MuestraNombre.setText(nombre);
@@ -325,17 +364,17 @@ public class InterfasEjercito extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ConfirmarElementos;
     private javax.swing.JLabel MuestraNombre;
     private javax.swing.JButton NombreEjercito;
     private javax.swing.JTable Tabla1;
     private javax.swing.JButton btnElefante;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGeneral;
+    private javax.swing.JButton btnTigre;
     private javax.swing.JButton caballeria;
     private javax.swing.JButton infanteria;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
