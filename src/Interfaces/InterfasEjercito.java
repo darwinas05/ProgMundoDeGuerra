@@ -11,6 +11,7 @@ import Componentes.Personas.Caballeria;
 import Componentes.Personas.General;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,7 +25,7 @@ public class InterfasEjercito extends javax.swing.JFrame {
     
     private Ejercito ejercito;
     private  General general;
-    
+  
     
     public InterfasEjercito() {
         initComponents();
@@ -35,7 +36,7 @@ public class InterfasEjercito extends javax.swing.JFrame {
         modelo.addColumn("Ataque");
         modelo.addColumn("Defensa");
         modelo.addColumn("Salud");
-        this.Tabla1.setModel(modelo);
+        this.tablaa.setModel(modelo);
         
         }
  // Metodo para agregar una imagen como icono. 
@@ -66,7 +67,7 @@ public class InterfasEjercito extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         ConfirmarElementos = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        MostrarSaldo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         MuestraNombre = new javax.swing.JLabel();
@@ -76,7 +77,7 @@ public class InterfasEjercito extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tabla1 = new javax.swing.JTable();
+        tablaa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,7 +181,12 @@ public class InterfasEjercito extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
 
-        jTextField1.setEditable(false);
+        MostrarSaldo.setEditable(false);
+        MostrarSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarSaldoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Saldo : ");
 
@@ -198,7 +204,7 @@ public class InterfasEjercito extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MostrarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -208,7 +214,7 @@ public class InterfasEjercito extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MuestraNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MostrarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(53, Short.MAX_VALUE))
@@ -259,7 +265,7 @@ public class InterfasEjercito extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
-        Tabla1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -270,7 +276,7 @@ public class InterfasEjercito extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(Tabla1);
+        jScrollPane1.setViewportView(tablaa);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -300,9 +306,18 @@ public class InterfasEjercito extends javax.swing.JFrame {
         icono("/imagenes/desplazarse.png", 40, 40), JLabel.CENTER),
                 "Nombre del ejército", JOptionPane.PLAIN_MESSAGE);
         
+        ActionListener oyente = new ActionListener() {
+        
+            @Override
+    public void actionPerformed(ActionEvent e) {
+          if(e.getSource() == NombreEjercito){
+              MuestraNombre.setText(JOptionPane.showInputDialog(this));
+          }
+        
+        
          InterfasEjercito inteEjercito = new InterfasEjercito();
             inteEjercito.setVisible(true);
-            
+             
   
     }//GEN-LAST:event_NombreEjercitoActionPerformed
 
@@ -315,7 +330,23 @@ public class InterfasEjercito extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void infanteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infanteriaActionPerformed
-  ejercito.menu();
+
+        
+        /*
+         ActionListener agrega = new ActionListener() {
+        
+       @Override
+         public void actionPerformed(ActionEvent e){
+        if (e.getSource()== infanteria){
+            Tabla1++;
+            
+        }
+    }
+         };      */ 
+        
+               ejercito.menu();  
+        
+        
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
    
     }//GEN-LAST:event_infanteriaActionPerformed
@@ -332,20 +363,28 @@ public class InterfasEjercito extends javax.swing.JFrame {
 
     private void btnGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralActionPerformed
 
-        
+    
+          
         String mensage = " Solo puedes agregar un general por ejército ";
         JOptionPane.showMessageDialog(this,mensage);
         
         
-        String tabla = Tabla1.getToolTipText();
-         ejercito.menu();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-
-     
+        ActionListener oyente = new ActionListener() {
+        
+            @Override
+    public void actionPerformed(ActionEvent e) {
+          if(e.getSource() == btnGeneral){
+              MostrarSaldo.setText(General.getID());
+          }
+        
+    
+    }
+        
+        };
     }//GEN-LAST:event_btnGeneralActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int elimi = Tabla1.getSelectedRowCount();
+        int elimi = tablaa.getSelectedRowCount();
         if (elimi >= 0){
             modelo.removeRow(elimi);
         }else{
@@ -357,7 +396,11 @@ public class InterfasEjercito extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTigreActionPerformed
 
-    void setNombreEjercito(String nombre){
+    private void MostrarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarSaldoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MostrarSaldoActionPerformed
+
+   public void setNombreEjercito(String nombre){
         MuestraNombre.setText(nombre);
         
     }
@@ -365,9 +408,9 @@ public class InterfasEjercito extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ConfirmarElementos;
+    private javax.swing.JTextField MostrarSaldo;
     private javax.swing.JLabel MuestraNombre;
     private javax.swing.JButton NombreEjercito;
-    private javax.swing.JTable Tabla1;
     private javax.swing.JButton btnElefante;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGeneral;
@@ -383,12 +426,8 @@ public class InterfasEjercito extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tablaa;
     // End of variables declaration//GEN-END:variables
 
         }
-          
-
-
-       
