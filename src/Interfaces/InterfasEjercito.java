@@ -29,13 +29,13 @@ public class InterfasEjercito extends javax.swing.JFrame{
     private General general;
     private Elefante elefante;
     private Tigre trigre;
-    private Ejercito ejercito;
+    private Ejercito ejercito = new Ejercito();   
     private ActionListener oyente;//nuevo
     private int porcentaje = 0;//nuevo
-    
+   
     public InterfasEjercito() {
         initComponents();
-        
+       
 //Declaracion de las columnas de la tabla.
         modelo.addColumn("Tipo");
         modelo.addColumn("ID");
@@ -103,6 +103,9 @@ public class InterfasEjercito extends javax.swing.JFrame{
         Tablaa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 153, 0));
+
+        botones.setBackground(new java.awt.Color(153, 153, 0));
 
         NombreEjercito.setText("Nombrar Ejercito");
         NombreEjercito.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +157,11 @@ public class InterfasEjercito extends javax.swing.JFrame{
         });
 
         ConfirmarElementos.setText("Confirmar");
+        ConfirmarElementos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfirmarElementosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout botonesLayout = new javax.swing.GroupLayout(botones);
         botones.setLayout(botonesLayout);
@@ -200,7 +208,7 @@ public class InterfasEjercito extends javax.swing.JFrame{
 
         getContentPane().add(botones, java.awt.BorderLayout.LINE_END);
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(153, 153, 0));
 
         jLabel1.setText("Saldo : ");
 
@@ -233,9 +241,8 @@ public class InterfasEjercito extends javax.swing.JFrame{
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(nombreEjercito, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nombreEjercito, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addComponent(jLabel1)))))
@@ -244,7 +251,7 @@ public class InterfasEjercito extends javax.swing.JFrame{
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
-        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel3.setBackground(new java.awt.Color(153, 153, 0));
 
         jLabel3.setText("Total :");
 
@@ -255,7 +262,6 @@ public class InterfasEjercito extends javax.swing.JFrame{
             }
         });
 
-        totalElemt.setText("jFormattedTextField1");
         totalElemt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 totalElemtActionPerformed(evt);
@@ -288,6 +294,7 @@ public class InterfasEjercito extends javax.swing.JFrame{
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
+        Tablaa.setAutoCreateColumnsFromModel(false);
         Tablaa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -300,22 +307,24 @@ public class InterfasEjercito extends javax.swing.JFrame{
             }
         ));
         Tablaa.setMinimumSize(new java.awt.Dimension(50, 50));
+        Tablaa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tablaa);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel4, java.awt.BorderLayout.CENTER);
@@ -386,30 +395,36 @@ public class InterfasEjercito extends javax.swing.JFrame{
     }//GEN-LAST:event_btnElefanteActionPerformed
 
     private void btnGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralActionPerformed
-
-    General general = new General();
-          modelo.addRow(new Object[]{
-              general.getNombre(),
-              general.getID(),
-              general.getAtaque(),
-              general.getDefensa(),
-              general.getSalud()
-                  
-          });
-
-        String mensage = " Solo puedes agregar un general por ejército ";
-        JOptionPane.showMessageDialog(this,mensage);   
-             
+      
+        String mensaje = "Solo puedes agregar una general por ejercito";
+        String mensajeError = "YA HAS AÑADIDO UN GENERAL A TU ejercito";
+        
+        if(!ejercito.hayGeneral ){
+            General general = new General();
+        modelo.addRow(new Object[]{
+            general.getNombre(),
+            general.getID(),
+            general.getAtaque(),
+            general.getDefensa(),
+            general.getSalud()
+        });
+        ejercito.hayGeneral = true;
+       }else{
+            JOptionPane.showMessageDialog(this,mensajeError);
+        }   
     }//GEN-LAST:event_btnGeneralActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int elimi = Tablaa.getSelectedRowCount();
+        int elimi = modelo.getRowCount();
         if (elimi >= 0){
-            modelo.removeRow(elimi);
+            int lastIndex = elimi - 1;
+            modelo.removeRow(lastIndex);
+            
+            
         }else{
                  JOptionPane.showMessageDialog(null,"No hay elementos para eliminar.");
             }
-       
+       ejercito.actualizarEjercito();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnTigreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTigreActionPerformed
@@ -427,8 +442,32 @@ public class InterfasEjercito extends javax.swing.JFrame{
     }//GEN-LAST:event_btnTigreActionPerformed
 
     private void totalElemtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalElemtActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_totalElemtActionPerformed
+
+    private void TablaaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaaMouseClicked
+        // TODO add your handling code here:
+        
+   
+    }//GEN-LAST:event_TablaaMouseClicked
+
+    private void ConfirmarElementosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmarElementosActionPerformed
+   
+    int totalFilas = modelo.getRowCount();
+    int totalAtaque = 0;
+    int totalDefensa = 0;
+    int totalSalud = 0;
+    
+    for (int i = 0; i < totalFilas; i++) {
+        totalAtaque += (int) modelo.getValueAt(i, 2);
+        totalDefensa += (int) modelo.getValueAt(i, 3);
+        totalSalud += (int) modelo.getValueAt(i, 4);
+    }
+    
+    
+    totalElemt.setText("Total Ataque: " + totalAtaque + ", Total Defensa: " + totalDefensa + ", Total Salud: " + totalSalud);
+
+    }//GEN-LAST:event_ConfirmarElementosActionPerformed
 
  
   
@@ -457,4 +496,5 @@ public class InterfasEjercito extends javax.swing.JFrame{
     private javax.swing.JFormattedTextField totalElemt;
     // End of variables declaration//GEN-END:variables
 
+   
 }
