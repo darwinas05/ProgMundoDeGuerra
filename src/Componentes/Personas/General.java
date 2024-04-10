@@ -1,9 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Componentes.Personas;
 
+import EntradaSalida.ExploradorFicheros;
+import java.awt.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,7 +23,7 @@ public static final int PESO_GENERAL = 1;
         setAtaque((int) Math.ceil(atributos.get(0)*getMultiplicador()));
         setDefensa((int) Math.ceil(atributos.get(1)*getMultiplicador()));
         setSalud((int) Math.ceil(atributos.get(2)*getMultiplicador())); 
-//        setNombre(LLAMAR A FUNCION QUE DEVUELVE NOMBRE RANDOM DESDE FICHERO);
+        setNombre(ExploradorFicheros.leerFichero());
     }
        
     @Override

@@ -18,10 +18,15 @@ public class ExploradorFicheros{
     public static String leerFichero(){
 
         JFileChooser fileChooser = new JFileChooser();
-        if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION){
+        if (fileChooser.showOpenDialog(fileChooser)
+                == JFileChooser.APPROVE_OPTION){
             try {
-                return fileChooser.getSelectedFile().getAbsolutePath();                                                                                
-
+                File selectedFile = fileChooser.getSelectedFile();
+                BufferedReader reader = new BufferedReader(
+                        new FileReader(selectedFile));
+                String line = reader.readLine();
+                reader.close();
+                return line;
             } catch (NullPointerException e) {
                 System.out.println("No se ha seleccionado ningún fichero");
                 return null;

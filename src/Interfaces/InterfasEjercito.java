@@ -5,6 +5,10 @@
 package Interfaces;
 
 import Batallas.Ejercito;
+import static Batallas.Ejercito.MAX_Peso;
+import static Batallas.Ejercito.MAX_Animales;
+import static Batallas.Ejercito.MAXMIN_General;
+import static Batallas.Ejercito.MIN_UNIDADES;
 import javax.swing.*;
 import java.awt.*;
 import Componentes.Animales.*;
@@ -19,58 +23,58 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author darwi
  */
-public class InterfasEjercito extends javax.swing.JFrame{
+public class InterfasEjercito extends javax.swing.JFrame {
 
-    
     //para ponerle valores predeterminados a la tabla.
     DefaultTableModel modelo = new DefaultTableModel();
-    
+
     private Timer timer;
     private General general;
     private Elefante elefante;
     private Tigre trigre;
-    private Ejercito ejercito = new Ejercito();   
+    private Ejercito ejercito = new Ejercito();
     private ActionListener oyente;//nuevo
     private int porcentaje = 0;//nuevo
-   
+
     public InterfasEjercito() {
         initComponents();
-       
+
+        ejercito.getSaldoPeso();
 //Declaracion de las columnas de la tabla.
         modelo.addColumn("Tipo");
         modelo.addColumn("ID");
         modelo.addColumn("Ataque");
         modelo.addColumn("Defensa");
         modelo.addColumn("Salud");
-      this.Tablaa.setModel(modelo);
-      // para la barra del saldo.
-      this.setLocationRelativeTo(null);//nuevo
-      oyente = new ActionListener() {
-          
-        
+        this.Tablaa.setModel(modelo);
+        // para la barra del saldo.
+        this.setLocationRelativeTo(null);//nuevo
+        oyente = new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {      //nuevo          
-                porcentaje = porcentaje++;
+                porcentaje = modelo.getRowCount();
                 barra.setValue(porcentaje); //nuevo
-                if(barra.getValue()== 50){
+                if (barra.getValue()== 50){
                     dispose();
                     timer.stop();
                 }
-                 }
-      }; 
-          timer = new Timer(100, oyente);//nuevo
-          timer.start();
-      
-        }
- // Metodo para agregar una imagen como icono. 
-    public Icon icono(String path, int width, int heigth){
+                
+            }
+        };
+        timer = new Timer(100, oyente);//nuevo
+        timer.start();
+       
+    }
+
+    // Metodo para agregar una imagen como icono. 
+    public Icon icono(String path, int width, int heigth) {
         Icon img = new ImageIcon(new ImageIcon(getClass()
                 .getResource(path)).getImage().getScaledInstance(width,
-                        heigth, java.awt.Image.SCALE_SMOOTH));
+                heigth, java.awt.Image.SCALE_SMOOTH));
         return img;
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -177,33 +181,31 @@ public class InterfasEjercito extends javax.swing.JFrame{
                         .addComponent(btnGeneral, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(caballeria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnTigre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnEliminar))
+                    .addComponent(btnEliminar)
+                    .addGroup(botonesLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(ConfirmarElementos)))
                 .addContainerGap(18, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ConfirmarElementos)
-                .addGap(35, 35, 35))
         );
         botonesLayout.setVerticalGroup(
             botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botonesLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
                 .addComponent(NombreEjercito)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(33, 33, 33)
                 .addComponent(infanteria)
                 .addGap(18, 18, 18)
                 .addComponent(caballeria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
                 .addComponent(btnGeneral)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnElefante)
                 .addGap(18, 18, 18)
+                .addComponent(btnElefante)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTigre)
-                .addGap(27, 27, 27)
+                .addGap(35, 35, 35)
                 .addComponent(btnEliminar)
-                .addGap(29, 29, 29)
+                .addGap(36, 36, 36)
                 .addComponent(ConfirmarElementos)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         getContentPane().add(botones, java.awt.BorderLayout.LINE_END);
@@ -294,7 +296,6 @@ public class InterfasEjercito extends javax.swing.JFrame{
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
-        Tablaa.setAutoCreateColumnsFromModel(false);
         Tablaa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -335,142 +336,135 @@ public class InterfasEjercito extends javax.swing.JFrame{
     private void NombreEjercitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreEjercitoActionPerformed
 
         // Agregamos un icono al JOptionPane, el mensaje a mostrar y el titulo de la ventana.
-        String ingresaName = JOptionPane.showInputDialog(null,new JLabel("Ingresa un nombre para tu ejército",
-        icono("/imagenes/desplazarse.png", 40, 40), JLabel.CENTER),
+        String ingresaName = JOptionPane.showInputDialog(null, new JLabel("Ingresa un nombre para tu ejército",
+                icono("/imagenes/desplazarse.png", 40, 40), JLabel.CENTER),
                 "Nombre del ejército", JOptionPane.PLAIN_MESSAGE);
-         this.nombreEjercito.setText(ingresaName);
-        
-    
-     
+        this.nombreEjercito.setText(ingresaName);
+
+
     }//GEN-LAST:event_NombreEjercitoActionPerformed
 
     private void comfirmarEjercitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comfirmarEjercitoActionPerformed
-       
+
         InterfasEjercito ineter = new InterfasEjercito();
         ineter.setVisible(true);
         ineter.setLocationRelativeTo(null);
-        
+
     }//GEN-LAST:event_comfirmarEjercitoActionPerformed
 
     private void infanteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infanteriaActionPerformed
-            
+
         Infanteria infanteria = new Infanteria();
         modelo.addRow(new Object[]{
-            infanteria.getNombre(),
+            "Infanteria",
             infanteria.getID(),
             infanteria.getAtaque(),
             infanteria.getDefensa(),
             infanteria.getSalud()
-        });                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+        });
     }//GEN-LAST:event_infanteriaActionPerformed
 
     private void caballeriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caballeriaActionPerformed
 
         Caballeria caballeria = new Caballeria();
         modelo.addRow(new Object[]{
-           caballeria.getNombre(),
-           caballeria.getID(), 
-           caballeria.getAtaque(),
-           caballeria.getDefensa(),
-           caballeria.getSalud()
-        });                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+            "caballeria",
+            caballeria.getID(),
+            caballeria.getAtaque(),
+            caballeria.getDefensa(),
+            caballeria.getSalud()
+        });
 
     }//GEN-LAST:event_caballeriaActionPerformed
 
     private void btnElefanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElefanteActionPerformed
-        
-        String mensage = " Solo puedes agregar tres animales por ejercito ";
-               
-        Elefante elefante = new Elefante(); 
-          modelo.addRow(new Object[]{
-        "Elefante",      
-        elefante.getID(),
-        elefante.getAtaque(),
-        elefante.getDefensa(),
-        elefante.getSalud()
-      
-                
-    });                                                          
-    
+
+        Elefante elefante = new Elefante();
+
+        modelo.addRow(new Object[]{
+            "Elefante",
+            elefante.getID(),
+            elefante.getAtaque(),
+            elefante.getDefensa(),
+            elefante.getSalud()
+
+        });
+
     }//GEN-LAST:event_btnElefanteActionPerformed
 
     private void btnGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralActionPerformed
-      
-        String mensaje = "Solo puedes agregar una general por ejercito";
+
         String mensajeError = "YA HAS AÑADIDO UN GENERAL A TU ejercito";
-        
-        if(!ejercito.hayGeneral ){
+
+        if (!ejercito.hayGeneral) {
             General general = new General();
-        modelo.addRow(new Object[]{
-            general.getNombre(),
-            general.getID(),
-            general.getAtaque(),
-            general.getDefensa(),
-            general.getSalud()
-        });
-        ejercito.hayGeneral = true;
-       }else{
-            JOptionPane.showMessageDialog(this,mensajeError);
-        }   
+            modelo.addRow(new Object[]{
+                general.getNombre(),
+                general.getID(),
+                general.getAtaque(),
+                general.getDefensa(),
+                general.getSalud()
+            });
+            ejercito.hayGeneral = true;
+        } else {
+            JOptionPane.showMessageDialog(this, mensajeError);
+        }
     }//GEN-LAST:event_btnGeneralActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int elimi = modelo.getRowCount();
-        if (elimi >= 0){
+        if (elimi >= 0) {
             int lastIndex = elimi - 1;
             modelo.removeRow(lastIndex);
-            
-            
-        }else{
-                 JOptionPane.showMessageDialog(null,"No hay elementos para eliminar.");
-            }
-       ejercito.actualizarEjercito();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay elementos para eliminar.");
+        }
+        ejercito.actualizarEjercito();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnTigreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTigreActionPerformed
-           Tigre tigre = new  Tigre();
-           modelo.addRow(new Object[]{
-               tigre.getNombre(),
-               tigre.getID(),
-               tigre.getAtaque(),
-               tigre.getDefensa(),
-               tigre.getSalud()
-                   
-           });
-        
-        
+        Tigre tigre = new Tigre();
+        modelo.addRow(new Object[]{
+            "Tigre",
+            tigre.getID(),
+            tigre.getAtaque(),
+            tigre.getDefensa(),
+            tigre.getSalud()
+
+        });
+
     }//GEN-LAST:event_btnTigreActionPerformed
 
     private void totalElemtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalElemtActionPerformed
-        
+
     }//GEN-LAST:event_totalElemtActionPerformed
 
     private void TablaaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaaMouseClicked
         // TODO add your handling code here:
-        
-   
+
+
     }//GEN-LAST:event_TablaaMouseClicked
 
     private void ConfirmarElementosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmarElementosActionPerformed
-   
-    int totalFilas = modelo.getRowCount();
-    int totalAtaque = 0;
-    int totalDefensa = 0;
-    int totalSalud = 0;
-    
-    for (int i = 0; i < totalFilas; i++) {
-        totalAtaque += (int) modelo.getValueAt(i, 2);
-        totalDefensa += (int) modelo.getValueAt(i, 3);
-        totalSalud += (int) modelo.getValueAt(i, 4);
-    }
-    
-    
-    totalElemt.setText("Total Ataque: " + totalAtaque + ", Total Defensa: " + totalDefensa + ", Total Salud: " + totalSalud);
+        int totalFilas = modelo.getRowCount();
+        int totalAtaque = 0;
+        int totalDefensa = 0;
+        int totalSalud = 0;
 
+        for (int i = 0; i < totalFilas; i++) {
+            totalAtaque += (int) modelo.getValueAt(i, 2);
+            totalDefensa += (int) modelo.getValueAt(i, 3);
+            totalSalud += (int) modelo.getValueAt(i, 4);
+        }
+
+        totalElemt.setText("Total Ataque: " + totalAtaque + ", Total Defensa: " + totalDefensa + ", Total Salud: " + totalSalud);
+
+        double porcentaje = (double) ejercito.saldoPeso / MAX_Peso * 100;
+        barra.setValue((int) porcentaje);
     }//GEN-LAST:event_ConfirmarElementosActionPerformed
 
- 
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ConfirmarElementos;
     private javax.swing.JButton NombreEjercito;
@@ -496,5 +490,4 @@ public class InterfasEjercito extends javax.swing.JFrame{
     private javax.swing.JFormattedTextField totalElemt;
     // End of variables declaration//GEN-END:variables
 
-   
 }
